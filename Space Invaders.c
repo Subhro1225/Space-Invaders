@@ -1,3 +1,4 @@
+// header files used in the program
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
@@ -7,7 +8,7 @@
 #define width 60
 #define MAX_BULLETS 5
 
-// Game variables
+// global variables used in the games
 char board[height][width];
 int aliens[3][14];
 int gameover = 0;
@@ -18,15 +19,15 @@ int alien_offset_x = 0;
 int alien_offset_y = 0;
 int frame_count = 0;
 
-// Bullet data
-int bullet_x[MAX_BULLETS];
+// bullet data (coordinates in x and y, and the bullet count)
+int bullet_x[MAX_BULLETS]; 
 int bullet_y[MAX_BULLETS];
 int bullet_count = 0;
 
-// Global loop vars
+// global variables to run loops in the program
 int i, j;
 
-// Function declarations
+// function declarations or prototypes
 void initAliens();
 void initBoard();
 void printBoard();
@@ -41,6 +42,7 @@ void usertext();
 void rules();
 void quitScreen();
 
+// main function which contains the game loop
 int main() {
     userinterface();
     usertext();
@@ -65,6 +67,8 @@ int main() {
     quitScreen();
     return 0;
 }
+
+// function defination
 
 void userinterface() {
     system("cls");
@@ -108,7 +112,7 @@ void initAliens() {
 
     srand(time(0)); // seed random
 
-    int totalAliens = 10 + rand() % 6; // random between 10 to 15
+    int totalAliens = 10 + rand() % 6;
     int placed = 0;
 
     while (placed < totalAliens) {
@@ -230,13 +234,13 @@ void moveAliens() {
         }
     }
 
-    // Reverse direction if at boundary
+    // reverses the direction of the aliens if the aliens touches the boundary
     if ((alien_direction == 1 && rightMost + 1 >= width - 1) ||
         (alien_direction == -1 && leftMost - 1 <= 0)) {
         alien_direction *= -1;
         alien_offset_y++;
         if (3 + 2 + alien_offset_y >= player_y) {
-            gameover = 1; // aliens reached player
+            gameover = 1; // the game ends when the aliens reach the player
         }
     } else {
         alien_offset_x += alien_direction;
