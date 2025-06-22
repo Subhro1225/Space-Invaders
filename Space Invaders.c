@@ -8,7 +8,7 @@
 #define width 60
 #define MAX_BULLETS 5
 
-// global variables used in the games
+// global variables used in the game
 char board[height][width];
 int aliens[3][14];
 int gameover = 0;
@@ -169,6 +169,7 @@ void printBoard() {
     gotoxy(width - 15, 1); printf("SCORE: %d", score);
 }
 
+// it is a switch statement which checks the keyboard input and execute accordingly
 void input() {
     if (_kbhit()) {
         char ch = _getch();
@@ -199,6 +200,8 @@ void moveBullets() {
     }
 }
 
+/* this function checks if the coordinates of the bullets and the aliens are same if same they are that means there have been a collision
+and removes the alien from there */
 void checkCollision() {
     for (i = 0; i < MAX_BULLETS; i++) {
         if (bullet_y[i] >= 0) {
@@ -222,7 +225,7 @@ void checkCollision() {
 }
 
 void moveAliens() {
-    // Find leftmost and rightmost alien
+    // it finds the leftmost and rightmost alien
     int leftMost = width, rightMost = 0;
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 14; j++) {
@@ -243,7 +246,7 @@ void moveAliens() {
             gameover = 1; // the game ends when the aliens reach the player
         }
     } else {
-        alien_offset_x += alien_direction;
+        alien_offset_x += alien_direction; // else the aliens continue to move 
     }
 }
 
@@ -266,6 +269,7 @@ void quitScreen() {
     getch();
 }
 
+// this function helps to jump or place a element in a specific coordinate
 void gotoxy(int x, int y) {
     COORD coord = { x, y };
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
